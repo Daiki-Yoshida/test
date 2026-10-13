@@ -1,37 +1,29 @@
-# tiny-text-inspector
+# test — Git/GitHub テスト基盤
 
-A deliberately small TypeScript CLI for testing GitHub automation. It analyzes text and reports character, word, line, and frequency statistics.
+`Daiki-Yoshida/test` を、Git/GitHub・開発ルーチンの継続的な実験に使うための Docker-first テストプロジェクト。
 
-## Requirements
+## 構成
 
-- Node.js 20 or newer
-- npm
+- **Management Root Repository**: このリポジトリ（baseline: `master`、selector: `main`）。プロジェクト調整・`documents/`・公開コマンドを所有。
+- **Component Repository**: `tests/<selector>/` 配下に配置する独立 Git 履歴（`dotnet-test` / `script-test` / `documents-test`）。
 
-## Setup
+## ドキュメント
 
-```bash
-npm install
-npm test
-```
+プロジェクトの正規知識は [`documents/INDEX.md`](documents/INDEX.md) を起点にルーティングします。再利用エンジニアリング指針は `documents/artifacts/`（managed pack・インストール済みコピーは編集禁止）。
 
-## Usage
-
-Analyze a string:
+## 公開コマンド
 
 ```bash
-npm start -- --text "Hello hello, TypeScript!"
+./scripts/project.sh help      # 操作一覧
+./scripts/project.sh status    # 状態診断
+./scripts/project.sh bootstrap # 依存確認・管理ランタイム構築
+./scripts/project.sh verify    # 標準の最終検証
 ```
 
-Analyze a UTF-8 file:
+ホスト依存は Git・Docker/Compose・シェルのみ。言語ランタイムは管理コンテナ内で実行します。
 
-```bash
-npm start -- --file ./README.md --top 10
-```
+## 境界
 
-## Commands
-
-- `npm run build` — compile TypeScript into `dist/`
-- `npm test` — compile and run the Node.js test suite
-- `npm start -- ...` — run the compiled CLI
-
-The project has no runtime dependencies. TypeScript and Node.js type definitions are development-only dependencies.
+- GitHub の書込先は `Daiki-Yoshida/test` のみ
+- baseline `master` への直接変更はしない（統合は承認済みの PR 経由）
+- ローカルの読み書きは Project Root 内のみ

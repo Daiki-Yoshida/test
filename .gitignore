@@ -2,3 +2,17 @@ node_modules/
 dist/
 *.log
 .DS_Store
+
+# Project-owned scratch (local only, cleaned by `project.sh cleanup`).
+.scratch/
+
+# Work Root ownership boundary: only documents/ under each Work Root is
+# tracked by the Management Root; sibling repository checkouts and other
+# Work-Root content stay untracked.
+.worktrees/*/*/*
+!.worktrees/*/*/documents/
+!.worktrees/*/*/documents/**
+
+# Component Repository primary checkouts are independent Git repositories
+# and are never tracked as ordinary Management Root files.
+tests/*/
