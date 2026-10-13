@@ -1,0 +1,10 @@
+name: test-mgmt
+services:
+  tools:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: test-mgmt-tools:local
+    working_dir: /workspace
+    volumes:
+      - ..:/workspace:ro
